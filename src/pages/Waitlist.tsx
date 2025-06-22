@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,12 +8,14 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Users, Sparkles, Gift, Bell, Star } from 'lucide-react';
+import { useWaitlist } from '@/hooks/useWaitlist';
 
 const Waitlist = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState(2847);
+  const { joinWaitlist, getWaitlistCount, loading } = useWaitlist();
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -26,6 +28,15 @@ const Waitlist = () => {
     notifications: true,
     updates: true
   });
+
+  useEffect(() => {
+    // Get current waitlist count
+    getWaitlistCount().then(count => {
+      if (count > 0) {
+        setWaitlistCount(count);
+      }
+    });
+  }, []);
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -40,15 +51,19 @@ const Waitlist = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    const result = await joinWaitlist(formData);
+    
+    if (result.success) {
       setIsSubmitted(true);
-    }, 2000);
+      // Update count
+      const newCount = await getWaitlistCount();
+      if (newCount > 0) {
+        setWaitlistCount(newCount);
+      }
+    }
   };
 
   const aiTools = [
@@ -145,7 +160,7 @@ const Waitlist = () => {
             <div className="flex items-center justify-center space-x-6 text-sm text-gray-600">
               <div className="flex items-center">
                 <Users className="w-4 h-4 mr-2 text-purple-600" />
-                <span>2,847 people waiting</span>
+                <span>{waitlistCount.toLocaleString()} people waiting</span>
               </div>
               <div className="flex items-center">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
@@ -326,9 +341,9 @@ const Waitlist = () => {
                 <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 text-lg"
-                  disabled={isLoading || !formData.firstName || !formData.lastName || !formData.email || formData.interestedTools.length === 0}
+                  disabled={loading || !formData.firstName || !formData.lastName || !formData.email || formData.interestedTools.length === 0}
                 >
-                  {isLoading ? 'Joining Waitlist...' : 'Join the Waitlist'}
+                  {loading ? 'Joining Waitlist...' : 'Join the Waitlist'}
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center">

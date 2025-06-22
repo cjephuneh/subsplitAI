@@ -12,27 +12,22 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Announcement Banner */}
-      <div className="w-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 py-3 px-4 relative z-10">
+      {/* Simple Announcement Banner */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-2 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center text-center">
             <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2">
-                <Bell className="w-4 h-4 text-white animate-pulse" />
-                <span className="text-white font-bold text-sm md:text-base">
-                  🚀 EARLY ACCESS NOW OPEN
-                </span>
-              </div>
-              <span className="hidden md:inline text-white text-sm">
-                Join 2,847+ people getting exclusive access to AI tools at 50% off
+              <Bell className="w-4 h-4 text-white" />
+              <span className="text-white font-medium text-sm md:text-base">
+                Early Access Now Open - Join 2,847+ people on the waitlist
               </span>
               <Link to="/waitlist">
                 <Button 
                   size="sm" 
-                  className="bg-white text-orange-600 hover:bg-gray-100 font-semibold text-xs md:text-sm px-3 md:px-4 py-1 md:py-2 ml-2"
+                  className="bg-white text-blue-600 hover:bg-gray-100 font-medium text-xs md:text-sm px-3 py-1 ml-2"
                 >
                   Join Waitlist
-                  <ArrowRight className="ml-1 w-3 h-3 md:w-4 md:h-4" />
+                  <ArrowRight className="ml-1 w-3 h-3" />
                 </Button>
               </Link>
             </div>

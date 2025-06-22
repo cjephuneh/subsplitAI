@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,16 +6,21 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Eye, EyeOff, Github, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from '@/hooks/use-toast';
 
 const Auth = () => {
+  const navigate = useNavigate();
+  const { signUp, signIn, signInWithGoogle, signInWithGithub } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
-    name: ''
+    firstName: '',
+    lastName: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,15 +30,119 @@ const Auth = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (formData.password !== formData.confirmPassword) {
+      toast({
+        title: "Passwords don't match",
+        description: "Please make sure your passwords match.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
-    // Handle auth logic here
-    setTimeout(() => setIsLoading(false), 2000);
+    
+    try {
+      const { error } = await signUp(
+        formData.email, 
+        formData.password, 
+        formData.firstName, 
+        formData.lastName
+      );
+      
+      if (error) {
+        toast({
+          title: "Sign up failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account created!",
+          description: "Please check your email to verify your account.",
+        });
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSocialAuth = (provider: string) => {
-    console.log(`${provider} auth initiated`);
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      const { error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        toast({
+          title: "Sign in failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Welcome back!",
+          description: "You've been signed in successfully.",
+        });
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleAuth = async () => {
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) {
+        toast({
+          title: "Google sign in failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleGithubAuth = async () => {
+    try {
+      const { error } = await signInWithGithub();
+      if (error) {
+        toast({
+          title: "GitHub sign in failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -65,7 +173,8 @@ const Auth = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => handleSocialAuth('google')}
+                    onClick={handleGoogleAuth}
+                    disabled={isLoading}
                   >
                     <Mail className="mr-2 h-4 w-4" />
                     Continue with Google
@@ -73,7 +182,8 @@ const Auth = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => handleSocialAuth('github')}
+                    onClick={handleGithubAuth}
+                    disabled={isLoading}
                   >
                     <Github className="mr-2 h-4 w-4" />
                     Continue with GitHub
@@ -89,7 +199,7 @@ const Auth = () => {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSignIn} className="space-y-4">
                   <div>
                     <Label htmlFor="email">Email</Label>
                     <Input 
@@ -154,7 +264,8 @@ const Auth = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => handleSocialAuth('google')}
+                    onClick={handleGoogleAuth}
+                    disabled={isLoading}
                   >
                     <Mail className="mr-2 h-4 w-4" />
                     Continue with Google
@@ -162,7 +273,8 @@ const Auth = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => handleSocialAuth('github')}
+                    onClick={handleGithubAuth}
+                    disabled={isLoading}
                   >
                     <Github className="mr-2 h-4 w-4" />
                     Continue with GitHub
@@ -178,19 +290,34 @@ const Auth = () => {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      name="name"
-                      type="text" 
-                      placeholder="Enter your full name" 
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required 
-                      className="mt-1"
-                    />
+                <form onSubmit={handleSignUp} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="firstName">First Name</Label>
+                      <Input 
+                        id="firstName" 
+                        name="firstName"
+                        type="text" 
+                        placeholder="John" 
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required 
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input 
+                        id="lastName" 
+                        name="lastName"
+                        type="text" 
+                        placeholder="Doe" 
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required 
+                        className="mt-1"
+                      />
+                    </div>
                   </div>
                   <div>
                     <Label htmlFor="signup-email">Email</Label>
