@@ -1,12 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Bell, Users } from 'lucide-react';
+import { ArrowRight, Sparkles, Bell, Users, Clock, Star, TrendingUp, Zap, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <section className="hero-gradient min-h-screen flex flex-col justify-center pt-16">
+    <section className="hero-gradient min-h-screen flex flex-col justify-center pt-16 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+      </div>
+
       {/* Announcement Banner */}
-      <div className="w-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 py-3 px-4">
+      <div className="w-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 py-3 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center text-center">
             <div className="flex items-center space-x-3">
@@ -34,7 +41,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main Hero Content */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
             {/* Text Content */}
@@ -105,37 +112,178 @@ const HeroSection = () => {
               </div>
             </div>
             
-            {/* Hero Image/Visual */}
-            <div className="mt-12 lg:mt-0 lg:col-span-6">
-              <div className="glass-card p-8 rounded-2xl">
-                <div className="bg-white rounded-xl p-6 shadow-2xl">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-gray-900">Available AI Tools</h3>
+            {/* Enhanced Hero Visual */}
+            <div className="mt-12 lg:mt-0 lg:col-span-6 relative">
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-20 animate-bounce"></div>
+              <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 animate-bounce delay-1000"></div>
+              
+              {/* Main Dashboard Card */}
+              <div className="glass-card p-6 rounded-2xl relative transform hover:scale-105 transition-transform duration-300">
+                {/* Floating Stats */}
+                <div className="absolute -top-6 -right-6 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-pulse">
+                  <div className="flex items-center space-x-1">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>90% Savings</span>
+                  </div>
+                </div>
+                
+                <div className="absolute -top-6 -left-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-pulse delay-500">
+                  <div className="flex items-center space-x-1">
+                    <Zap className="w-4 h-4" />
+                    <span>Instant Access</span>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-6 shadow-2xl relative overflow-hidden">
+                  {/* Header with Live Indicator */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                        <Shield className="w-5 h-5 text-purple-600" />
+                        Available AI Tools
+                      </h3>
+                      <p className="text-sm text-gray-500">Real-time marketplace</p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       <span className="text-green-600 text-sm font-medium">Live</span>
                     </div>
-                    
-                    {/* Mock AI Tool Cards */}
-                    <div className="space-y-3">
-                      {[
-                        { name: 'ChatGPT Plus', price: '$2/day', users: '24 online' },
-                        { name: 'Claude Pro', price: '$3/day', users: '18 online' },
-                        { name: 'Notion AI', price: '$1.50/day', users: '31 online' }
-                      ].map((tool) => (
-                        <div key={tool.name} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div>
-                            <p className="font-medium text-gray-900">{tool.name}</p>
-                            <p className="text-sm text-gray-500">{tool.users}</p>
+                  </div>
+                  
+                  {/* Enhanced AI Tool Cards */}
+                  <div className="space-y-4">
+                    {[
+                      { 
+                        name: 'ChatGPT Plus', 
+                        price: '$2/day', 
+                        users: '24 online',
+                        originalPrice: '$20/mo',
+                        savings: '90%',
+                        rating: 4.9,
+                        status: 'available',
+                        icon: '🤖'
+                      },
+                      { 
+                        name: 'Claude Pro', 
+                        price: '$3/day', 
+                        users: '18 online',
+                        originalPrice: '$20/mo',
+                        savings: '85%',
+                        rating: 4.8,
+                        status: 'available',
+                        icon: '🧠'
+                      },
+                      { 
+                        name: 'Notion AI', 
+                        price: '$1.50/day', 
+                        users: '31 online',
+                        originalPrice: '$10/mo',
+                        savings: '85%',
+                        rating: 4.7,
+                        status: 'limited',
+                        icon: '📝'
+                      }
+                    ].map((tool, index) => (
+                      <div key={tool.name} className="group relative">
+                        <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl hover:from-purple-50 hover:to-blue-50 transition-all duration-300 border border-gray-200 hover:border-purple-200 hover:shadow-md">
+                          <div className="flex items-center space-x-3">
+                            <div className="text-2xl">{tool.icon}</div>
+                            <div>
+                              <div className="flex items-center space-x-2">
+                                <p className="font-semibold text-gray-900">{tool.name}</p>
+                                <div className="flex items-center space-x-1">
+                                  <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                                  <span className="text-xs text-gray-600">{tool.rating}</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <p className="text-sm text-gray-500">{tool.users}</p>
+                                <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                                  Save {tool.savings}
+                                </span>
+                              </div>
+                            </div>
                           </div>
                           <div className="text-right">
-                            <p className="font-semibold text-purple-800">{tool.price}</p>
-                            <Button size="sm" className="mt-1 bg-purple-800 hover:bg-purple-900">
-                              Rent Now
+                            <div className="flex items-center space-x-2 mb-1">
+                              <span className="text-lg font-bold text-purple-800">{tool.price}</span>
+                              <span className="text-xs text-gray-400 line-through">{tool.originalPrice}</span>
+                            </div>
+                            <Button 
+                              size="sm" 
+                              className={`transition-all duration-300 ${
+                                tool.status === 'available' 
+                                  ? 'bg-purple-800 hover:bg-purple-900 hover:scale-105' 
+                                  : 'bg-orange-500 hover:bg-orange-600'
+                              }`}
+                            >
+                              {tool.status === 'available' ? 'Rent Now' : 'Join Queue'}
                             </Button>
                           </div>
                         </div>
-                      ))}
+                        
+                        {/* Hover Effect Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Stats Bar */}
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-1">
+                          <Clock className="w-4 h-4 text-blue-500" />
+                          <span className="text-gray-600">Avg. 2min setup</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Shield className="w-4 h-4 text-green-500" />
+                          <span className="text-gray-600">100% secure</span>
+                        </div>
+                      </div>
+                      <div className="text-purple-600 font-medium">
+                        +12 more tools →
+                      </div>
                     </div>
+                  </div>
+                </div>
+
+                {/* Floating Action Buttons */}
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                  <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
+                    <Users className="w-5 h-5 text-purple-600 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
+                    <Star className="w-5 h-5 text-yellow-500 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow cursor-pointer group">
+                    <TrendingUp className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Side Floating Cards */}
+              <div className="absolute top-20 -right-8 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg animate-float">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-green-600 text-sm font-bold">$</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-gray-900">Total Saved</p>
+                    <p className="text-sm font-bold text-green-600">$1,247</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute bottom-20 -left-8 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg animate-float delay-1000">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Clock className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-gray-900">Active Users</p>
+                    <p className="text-sm font-bold text-blue-600">2,847</p>
                   </div>
                 </div>
               </div>
@@ -143,6 +291,16 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
