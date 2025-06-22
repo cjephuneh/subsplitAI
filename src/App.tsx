@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import BrowseTools from "./pages/BrowseTools";
 import ListSubscription from "./pages/ListSubscription";
+import Waitlist from "./pages/Waitlist";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import ApiDocs from "./pages/ApiDocs";
@@ -34,6 +34,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/browse-tools" element={<BrowseTools />} />
           <Route path="/list-subscription" element={<ListSubscription />} />
+          <Route path="/waitlist" element={<Waitlist />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/api-docs" element={<ApiDocs />} />
