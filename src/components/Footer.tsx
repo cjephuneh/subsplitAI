@@ -1,13 +1,34 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const footerLinks = {
-    Product: ['How It Works', 'Browse Tools', 'List Subscription', 'Pricing'],
-    Company: ['About Us', 'Blog', 'Careers', 'Press Kit'],
-    Support: ['Help Center', 'Contact Us', 'Status Page', 'API Docs'],
-    Legal: ['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'GDPR']
+    Product: [
+      { name: 'How It Works', href: '/#how-it-works' },
+      { name: 'Browse Tools', href: '/browse-tools' },
+      { name: 'List Subscription', href: '/list-subscription' },
+      { name: 'Pricing', href: '/#pricing' }
+    ],
+    Company: [
+      { name: 'About Us', href: '/#about' },
+      { name: 'Blog', href: '/blog' },
+      { name: 'API Docs', href: '/api-docs' },
+      { name: 'Status', href: '/status' }
+    ],
+    Support: [
+      { name: 'Help Center', href: '/help' },
+      { name: 'Contact Us', href: '/contact' },
+      { name: 'Status Page', href: '/status' },
+      { name: 'API Docs', href: '/api-docs' }
+    ],
+    Legal: [
+      { name: 'Terms of Service', href: '/terms' },
+      { name: 'Privacy Policy', href: '/privacy' },
+      { name: 'Cookie Policy', href: '/cookie-policy' },
+      { name: 'GDPR', href: '/gdpr' }
+    ]
   };
 
   const socialIcons = ['📘', '🐦', '📸', '💼'];
@@ -41,10 +62,13 @@ const Footer = () => {
               <h4 className="font-semibold mb-4">{category}</h4>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                      {link}
-                    </a>
+                  <li key={link.name}>
+                    <Link 
+                      to={link.href} 
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
