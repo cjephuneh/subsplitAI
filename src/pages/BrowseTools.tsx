@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, Filter, Star, Clock, Users, ExternalLink, Sparkles, TrendingUp, Zap, Crown, Fire, Award } from 'lucide-react';
+import { Search, Filter, Star, Clock, Users, ExternalLink, Sparkles, TrendingUp, Zap, Crown, Siren as Fire, Award } from 'lucide-react';
 
 const BrowseTools = () => {
   const [searchTerm, setSearchTerm] = useState('');
