@@ -12,25 +12,37 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/3 w-24 h-24 md:w-64 md:h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Simple Announcement Banner */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-2 px-4 relative z-10">
+      {/* Clean Announcement Banner - Matching AI Tools Card Style */}
+      <div className="w-full py-3 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-2 sm:gap-3">
-            <div className="flex items-center space-x-2">
-              <Bell className="w-4 h-4 text-white" />
-              <span className="text-white font-medium text-xs sm:text-sm md:text-base">
-                Early Access Now Open - Join 2,847+ people on the waitlist
-              </span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-3 sm:gap-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                  <Bell className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-white font-medium text-sm sm:text-base">
+                  Early Access Now Open
+                </span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2 text-white/80">
+                  <Users className="w-4 h-4" />
+                  <span className="text-sm">2,847+ waiting</span>
+                </div>
+                
+                <Link to="/waitlist">
+                  <Button 
+                    size="sm" 
+                    className="neon-green font-medium text-sm px-4 py-2 hover:scale-105 transition-transform"
+                  >
+                    Join Waitlist
+                    <ArrowRight className="ml-1 w-3 h-3" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <Link to="/waitlist">
-              <Button 
-                size="sm" 
-                className="bg-white text-blue-600 hover:bg-gray-100 font-medium text-xs px-3 py-1"
-              >
-                Join Waitlist
-                <ArrowRight className="ml-1 w-3 h-3" />
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
