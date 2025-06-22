@@ -607,7 +607,7 @@ const ListSubscription = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Avg Response Time</span>
-                    <span className="font-semibold">< 5 min</span>
+                    <span className="font-semibold">&lt; 5 min</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Success Rate</span>
