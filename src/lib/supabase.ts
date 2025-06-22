@@ -26,6 +26,17 @@ export interface WaitlistEntry {
   updated_at: string
 }
 
+export interface ContactSubmission {
+  id: string
+  first_name: string
+  last_name: string
+  email: string
+  subject: string
+  message: string
+  created_at: string
+  updated_at: string
+}
+
 export interface User {
   id: string
   email: string
